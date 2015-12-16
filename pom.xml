@@ -3,8 +3,8 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>ruboweb.pushscheduler</groupId>
-	<artifactId>pushscheduler</artifactId>
+	<groupId>ruboweb.pushetta</groupId>
+	<artifactId>pushetta</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -21,14 +21,14 @@
 			</roles>
 		</developer>
 	</developers>
-	
+
 	<scm>
 		<url>https://github.com/ruboweb/pushetta.git</url>
 	</scm>
-	
+
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>	
-		
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
 		<!-- Spring -->
 		<spring.version>3.2.11.RELEASE</spring.version>
 
@@ -36,6 +36,7 @@
 		<mysql.driver.version>5.1.37</mysql.driver.version>
 		<c3p0.version>0.9.1.2</c3p0.version>
 		<hibernate.version>4.3.6.Final</hibernate.version>
+		<hibernate.validator.version>4.0.2.GA</hibernate.validator.version>
 		<javax.validation.version>1.0.0.GA</javax.validation.version>
 		<spring.data.jpa.version>1.6.4.RELEASE</spring.data.jpa.version>
 
@@ -44,13 +45,17 @@
 		<jsp.version>2.1</jsp.version>
 		<jstl.version>1.2</jstl.version>
 		<jsf.version>2.0.2-b10</jsf.version>
-		
+
+		<!-- Rest WS -->
+		<jackson.version>2.2.3</jackson.version>
+
+
 		<!-- Log, testing -->
 		<mail.version>1.4.7</mail.version>
-		<slf4jlog4j.version>1.7.13</slf4jlog4j.version>
+		<slf4j.version>1.7.13</slf4j.version>
 		<junit.version>4.12</junit.version>
 	</properties>
-	
+
 	<dependencies>
 		<!-- Spring -->
 		<!-- core, context, orm, tx,... are transactional dependencies -->
@@ -64,7 +69,12 @@
 			<artifactId>spring-web</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
 		<!-- Hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -76,6 +86,11 @@
 			<artifactId>hibernate-ehcache</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate.validator.version}</version>
+		</dependency>
 
 		<!--JSR-303 -->
 		<dependency>
@@ -83,7 +98,7 @@
 			<artifactId>validation-api</artifactId>
 			<version>${javax.validation.version}</version>
 		</dependency>
-		
+
 		<!-- Base de Datos -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -131,25 +146,38 @@
 			<version>${jsf.version}</version>
 		</dependency>
 
-		<!-- Butter faces components
+		<!-- Butter faces components <dependency> <groupId>de.larmic.butterfaces</groupId> 
+			<artifactId>components-mojarra</artifactId> <version>1.9.12</version> </dependency> -->
+
+		<!-- Rest WS -->
 		<dependency>
-			<groupId>de.larmic.butterfaces</groupId>
-			<artifactId>components-mojarra</artifactId>
-			<version>1.9.12</version>
-		</dependency> -->
-		
-		
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.4.1.1</version>
+		</dependency>
+
 		<!-- Log, testing -->
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
 			<version>${mail.version}</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4jlog4j.version}</version>
+			<version>${slf4j.version}</version>
 		</dependency>
 
 		<dependency>
@@ -176,10 +204,8 @@
 			</properties>
 		</profile>
 	</profiles>
-	
-	<build>
 
-		
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
@@ -195,8 +221,8 @@
 					</connectors>
 				</configuration>
 			</plugin>
-			
-						<plugin>
+
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
 				<version>2.0.4</version>
@@ -209,8 +235,8 @@
 				</executions>
 			</plugin>
 		</plugins>
-		
-			<pluginManagement>
+
+		<pluginManagement>
 			<plugins>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
