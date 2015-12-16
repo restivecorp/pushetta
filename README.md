@@ -2,6 +2,7 @@
 
 This is a small project to implement a number of technologies such as:
 
+* Maven
 * Spring Framework
 * Spring Data
 * Spring Data JPA
@@ -18,6 +19,7 @@ This is a small project to implement a number of technologies such as:
 * jUnit
 * Spring Test
 * Log4j
+* Rest WS
 
 ## Description
 This project will have a mechanism for integration with http://pushetta.com/. 
@@ -53,3 +55,7 @@ In this file configure the following parameters, the rest may be changed if desi
 2. Configure *.properties file
 2. Execute mvn jetty:run
 3. The application runs
+4. Go to http://localhost:8080/pushetta to view control panel
+5. Send rest request to create notifications (http://localhost:8080/rest/create)
+6. Let the application do its job. You will be notified at the time
+
