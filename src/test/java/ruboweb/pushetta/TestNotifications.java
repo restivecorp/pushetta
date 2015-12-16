@@ -1,6 +1,5 @@
 package ruboweb.pushetta;
 
-import java.util.Date;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -24,8 +23,7 @@ public class TestNotifications extends TestBase {
 	@Test
 	@Rollback(true)
 	public void createNotifications() {
-		Notification n = new Notification("Simple text", new Date(
-				System.currentTimeMillis()));
+		Notification n = new Notification("Simple text", "2015-12-01");
 		n = this.notificationService.createNotification(n);
 
 		TestCase.assertNotNull(n.getId());
@@ -34,8 +32,7 @@ public class TestNotifications extends TestBase {
 
 	@Test
 	public void deleteNotifications() {
-		Notification n = new Notification("Simple text", new Date(
-				System.currentTimeMillis()));
+		Notification n = new Notification("Simple text", "2015-12-01");
 		n = this.notificationService.createNotification(n);
 
 		TestCase.assertNotNull(n.getId());
@@ -50,8 +47,7 @@ public class TestNotifications extends TestBase {
 	
 	@Test
 	public void createNotificationsAndSend() {
-		Notification n = new Notification("Simple text", new Date(
-				System.currentTimeMillis()));
+		Notification n = new Notification("Simple text", "2015-12-01");
 		this.notificationService.createNotificationAndSend(n);
 		
 		n = this.notificationService.findOneNotification(n.getId());
@@ -62,8 +58,7 @@ public class TestNotifications extends TestBase {
 
 	@Test
 	public void sendNotifications() {
-		Notification n = new Notification("Simple text", new Date(
-				System.currentTimeMillis()));
+		Notification n = new Notification("Simple text", "2015-12-01");
 		n = this.notificationService.createNotification(n);
 		TestCase.assertNotNull(n.getId());
 
