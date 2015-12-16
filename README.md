@@ -1,35 +1,39 @@
 # Schedule Notificator System with Pushetta
 
-This is a small project to implement a number of technologies such as:
+This is a small project to implement and test a lot of technologies such as:
 
 * Maven
 * Spring Framework
 * Spring Data
 * Spring Data JPA
 * Spring Schedule / CRON
+* Spring Web / Rest WS
 * MySQL
 * Hibernate
 * JPA
-* Java Validation
+* -- Java Validation
+* Rest WS
 * Servlets
-* JSF 2.0
-* ButterFaces
-* Boostrap
+* -- JSF 2.0
+* -- ButterFaces
+* -- Boostrap
 * Java Mail
 * jUnit
 * Spring Test
 * Log4j
-* Rest WS
 
 ## Description
-This project will have a mechanism for integration with http://pushetta.com/. 
-Through this project the user will have a table that stores bbdd send notifications, and when the right time comes they will be sent to 
-pushetta for notification to the final recipient.
+Schedule Notificator System with Pushetta is a program that allows for the integration of Java with http://pushetta.com/ and gives it 
+additional capacity : save notifications and these will be sent on a given date. The main idea of ​​the project is to make use of the above 
+mentioned technologies to create a mini application as a planner.
 
 ## How does it work?
-There is a table in database where the notifications to be sent to Pushetta saved. Such notifications have a planned ship date.
+The user creates the notification to be sent. For it indicates the text and the date on which you want to send. This information is recorded in 
+a database and from that moment the application begins to evaluate from time to time if you have to send notifications or not. When found, it 
+connects to http://pushetta.com/ and sends the message.
 
-The application has a CRON every so often evaluates how notifications are to be sent and if they meet the conditions they are sent
+The notifications are stored with the corresponding delivery date . Also the failed requests are stored in the system and can be forwarded to 
+user request.
 
 ## How to configure?
 
@@ -52,10 +56,20 @@ In this file configure the following parameters, the rest may be changed if desi
 
 ## How to run?
 1. Clone the repository
-2. Configure *.properties file
-2. Execute mvn jetty:run
-3. The application runs
-4. Go to http://localhost:8080/pushetta to view control panel
-5. Send rest request to create notifications (http://localhost:8080/rest/create)
-6. Let the application do its job. You will be notified at the time
+2. create the database and the user needed to access
+3. Create the table with ddl (src/ddl/01.createTables.sql)
+4. Configure *.properties file
+5. Execute mvn jetty:run or deploy in container
+5. The application runs
+6. Go to http://localhost:8080/pushetta to view control panel
+7. Send rest requests
+8. Let the application do its job. You will be notified at the time
+
+## The API rest
+* POST: /rest/notify/create (body example --> {"text":"Dumy text", "scheduleDate":"2015-12-01"})
+* POST: /rest/notify/createSend (body example --> {"text":"Dumy text", "scheduleDate":"2015-12-01"})
+* GET: /rest/notify/get/{id}
+* GET: /rest/notify/by/{status} (valid params --> PENDING | SENT | ERROR | ALL)
+* GET: /rest/notify/delete/{id}
+* GET: /rest/notify/send/{kind} (valid kinds --> PENDING | ERROR )
 
