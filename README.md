@@ -66,10 +66,12 @@ In this file configure the following parameters, the rest may be changed if desi
 8. Let the application do its job. You will be notified at the time
 
 ## The API rest
-* POST: /rest/notify/create (body example --> {"text":"Dumy text", "scheduleDate":"2015-12-01"})
-* POST: /rest/notify/createSend (body example --> {"text":"Dumy text", "scheduleDate":"2015-12-01"})
-* GET: /rest/notify/get/{id}
-* GET: /rest/notify/by/{status} (valid params --> PENDING | SENT | ERROR | ALL)
-* GET: /rest/notify/delete/{id}
-* GET: /rest/notify/send/{kind} (valid kinds --> PENDING | ERROR )
+The base URL might be something like http://localhost:8080/pushetta then:
+
+* POST: /rest/notify/create (body example >> {"text":"Dumy text", "scheduleDate":"2015-12-01"})
+* POST: /rest/notify/createSend (body example >> {"text":"Dumy text", "scheduleDate":"2015-12-01"})
+* GET:  /rest/notify/get/{id}
+* GET:  /rest/notify/by/{status} (valid params >> PENDING | SENT | ERROR | ALL)
+* GET:  /rest/notify/delete/{id}
+* GET:  /rest/notify/send/{kind} (valid kinds >> PENDING | ERROR )
 
