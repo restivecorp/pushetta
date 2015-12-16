@@ -4,10 +4,6 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
 	<display-name>Pushetta Notify WWW</display-name>
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list>
 
 	<!-- Contexto de Spring -->
 	<context-param>
@@ -16,27 +12,39 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 	</context-param>
 	<!--
 	<filter>
-		<filter-name>hibernateFilter</filter-name>
-		<filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
-		<init-param>
-			<param-name>sessionFactoryBeanName</param-name>
-			<param-value>sessionFactoryRedmine</param-value>
-		</init-param>
+	<filter-name>hibernateFilter</filter-name>
+	<filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
+	<init-param>
+	<param-name>sessionFactoryBeanName</param-name>
+	<param-value>sessionFactoryRedmine</param-value>
+	</init-param>
 	</filter>
 	<filter-mapping>
-		<filter-name>hibernateFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+	<filter-name>hibernateFilter</filter-name>
+	<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	-->
-	
+
 	<!-- Spring Context -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
+
 	<!-- Spring Sessions -->
 	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
+
+	<!-- API REST -->
+	<servlet>
+        <servlet-name>rest</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>rest</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
 
 </web-app>
