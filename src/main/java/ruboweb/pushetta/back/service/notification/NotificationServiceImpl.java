@@ -63,9 +63,11 @@ public class NotificationServiceImpl implements NotificationService {
 	}
 
 	@Override
-	public void createNotificationAndSend(Notification n) {
+	public Notification createNotificationAndSend(Notification n) {
 		n = this.createNotification(n);
+		n = this.notificationRepository.findOne(n.getId());
 		this.send(n);
+		return n;
 	}
 
 	/**
@@ -76,6 +78,17 @@ public class NotificationServiceImpl implements NotificationService {
 	public void sendNotifications() {
 		List<Notification> notificatios = this.notificationRepository
 				.findNotificationsToSend();
+		if (notificatios != null && notificatios.size() > 0) {
+			for (Notification n : notificatios) {
+				this.send(n);
+			}
+		}
+	}
+
+	@Override
+	public void sendNotificationsWithError() {
+		List<Notification> notificatios = this.notificationRepository
+				.findNotificationsWithError();
 		if (notificatios != null && notificatios.size() > 0) {
 			for (Notification n : notificatios) {
 				this.send(n);
@@ -114,6 +127,21 @@ public class NotificationServiceImpl implements NotificationService {
 		return this.notificationRepository.findAll();
 	}
 
+	@Override
+	public List<Notification> getListNotificationsPending() {
+		return this.notificationRepository.findNotificationsToSend();
+	}
+
+	@Override
+	public List<Notification> getListNotificationsError() {
+		return this.notificationRepository.findNotificationsWithError();
+	}
+
+	@Override
+	public List<Notification> getListNotificationsSent() {
+		return this.notificationRepository.findNotificationsSent();
+	}
+
 	private void send(Notification n) {
 		try {
 			this.sendPushetta(n);
@@ -139,7 +167,7 @@ public class NotificationServiceImpl implements NotificationService {
 			logger.error("Invalid boolean value ${pushetta.cfg.enable}");
 			return;
 		}
-		
+
 		try {
 			String dateAvailable = this.getDate(this.daysAvailable);
 			String url = this.api + this.channel + "/";

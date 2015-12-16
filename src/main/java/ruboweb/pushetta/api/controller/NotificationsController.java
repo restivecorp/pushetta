@@ -1,7 +1,7 @@
 package ruboweb.pushetta.api.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,37 +15,30 @@ import ruboweb.pushetta.back.model.Notification;
 import ruboweb.pushetta.back.service.notification.NotificationService;
 
 @Controller
-@RequestMapping("/n")
+@RequestMapping("/notify")
 public class NotificationsController {
 
 	private final String HEADER_JSON = "Accept=application/json";
 
+	// create
 	private final String CREATE_NOTIFICATION = "/create";
 	private final String CREATE_NOTIFICATION_AND_SEND = "/createSend";
 
+	// finds
 	private final String GET_NOTIFICATION = "/get/{id}";
-	private final String GET_NOTIFICATIONS = "/all";
+	private final String GET_NOTIFICATIONS = "/by/{status}";
 
-	private final String GET_NOTIFICATION_PENDING = "/pending";
-	private final String GET_NOTIFICATION_SENT = "/sent";
-	private final String GET_NOTIFICATIONS_ERROR = "/error";
+	// delte
+	private final String DELETE_NOTIFICATION = "/delete/{id}";
 
-	private final String DELETE_NOTIFICATION = "/del/{id}";
-
-	private final String SEND_NOTIFICATIONS_NOW = "/send";
-	private final String SEND_NOTIFICATIONS_ERROR = "s/endError";
+	// send
+	private final String SEND_NOTIFICATIONS = "/send/{kind}";
 
 	@Autowired
 	private NotificationService notificationService;
 
 	public NotificationsController() {
 
-	}
-
-	@RequestMapping(value = "/dummy", method = RequestMethod.GET, headers = HEADER_JSON)
-	public @ResponseBody
-	Notification getDummy() {
-		return new Notification("Dumy text", "2015-12-17");
 	}
 
 	@RequestMapping(value = CREATE_NOTIFICATION, method = RequestMethod.POST, headers = HEADER_JSON)
@@ -57,19 +50,91 @@ public class NotificationsController {
 	}
 
 	@RequestMapping(value = CREATE_NOTIFICATION_AND_SEND, method = RequestMethod.POST, headers = HEADER_JSON)
-	public void createAndSend(@RequestBody Notification param) {
+	public @ResponseBody
+	Notification createAndSend(@RequestBody Notification param) {
 		this.validate(param);
-		this.notificationService.createNotificationAndSend(param);
+		param = this.notificationService.createNotificationAndSend(param);
+		return param;
 	}
 
 	@RequestMapping(value = GET_NOTIFICATION, method = RequestMethod.GET, headers = HEADER_JSON)
 	public @ResponseBody
 	Notification getNotification(@PathVariable("id") Long id) {
 		if (id == null) {
-			return null;
+			throw new IllegalArgumentException(
+					"NotificationsController#getNotification. id must not be null.");
 		}
 
 		return this.notificationService.findOneNotification(id);
+	}
+
+	@RequestMapping(value = GET_NOTIFICATIONS, method = RequestMethod.GET, headers = HEADER_JSON)
+	public @ResponseBody
+	List<Notification> getNotifications(@PathVariable("status") String status) {
+		if (status == null) {
+			throw new IllegalArgumentException(
+					"NotificationsController#getNotificationsByStatus. status must not be null.");
+		}
+
+		List<Notification> notifications = null;
+
+		if (status.toUpperCase().equals("PENDING")) {
+			notifications = this.notificationService
+					.getListNotificationsPending();
+		}
+
+		if (status.toUpperCase().equals("SENT")) {
+			notifications = this.notificationService.getListNotificationsSent();
+		}
+
+		if (status.toUpperCase().equals("ERROR")) {
+			notifications = this.notificationService
+					.getListNotificationsError();
+		}
+
+		if (status.toUpperCase().equals("ALL")) {
+			notifications = this.notificationService.getListNotifications();
+		}
+
+		if (notifications != null && notifications.size() > 0) {
+			return new ArrayList<Notification>(notifications);
+		}
+		return null;
+	}
+
+	@RequestMapping(value = DELETE_NOTIFICATION, method = RequestMethod.GET, headers = HEADER_JSON)
+	public void deleteNotification(@PathVariable("id") Long id) {
+		if (id == null) {
+			throw new IllegalArgumentException(
+					"NotificationsController#deleteNotification. id must not be null.");
+		}
+
+		Notification n = this.notificationService.findOneNotification(id);
+
+		if (n != null) {
+			this.notificationService.deleteNotification(id);
+		}
+	}
+
+	@RequestMapping(value = SEND_NOTIFICATIONS, method = RequestMethod.GET, headers = HEADER_JSON)
+	public void sendNotifications(@PathVariable("kind") String kind) {
+		if (kind == null) {
+			throw new IllegalArgumentException(
+					"NotificationsController#sendNotifications. kind must not be null.");
+		}
+
+		if (kind.isEmpty()) {
+			throw new IllegalArgumentException(
+					"NotificationsController#sendNotifications. kind must not be empty.");
+		}
+
+		if (kind.toUpperCase().equals("ERROR")) {
+			this.notificationService.sendNotificationsWithError();
+		}
+
+		if (kind.toUpperCase().equals("PENDING")) {
+			this.notificationService.sendNotifications();
+		}
 	}
 
 	private void validate(Notification param) {
@@ -92,51 +157,5 @@ public class NotificationsController {
 					"NotificationsController#validate. date must not be null.");
 		}
 	}
-
-	//
-	// @RequestMapping(value = RestURIConstants.CREATE_LISTA_DESEOS, method =
-	// RequestMethod.POST, headers = RestURIConstants.HEADER_JSON)
-	// public @ResponseBody
-	// ListaDeseos crearListaDeseos(@RequestBody ListaDeseos ld) {
-	// ld = this.listaDeseosService.insertar(ld);
-	// return ld;
-	// }
-	//
-	// @RequestMapping(value = RestURIConstants.DELETE_LISTA_DESEOS, method =
-	// RequestMethod.PUT, headers = RestURIConstants.HEADER_JSON)
-	// public @ResponseBody
-	// boolean borrarListaDeseos(@PathVariable("id") long id) {
-	// ListaDeseos ld = this.listaDeseosService.obtenerListaDeseos(id);
-	//
-	// if (ld == null) {
-	// return false;
-	// }
-	// this.listaDeseosService.borrar(ld);
-	// return true;
-	// }
-	//
-	// @RequestMapping(value = RestURIConstants.GET_LISTA_DESEOS, method =
-	// RequestMethod.GET, headers = RestURIConstants.HEADER_JSON)
-	// public @ResponseBody
-	// ListaDeseos obtenerLista(@PathVariable("id") Long id) {
-	// if (id == null) {
-	// return null;
-	// }
-	//
-	// return this.listaDeseosService.obtenerListaDeseos(id);
-	// }
-	//
-	// @RequestMapping(value = RestURIConstants.GETALL_LISTA_DESEOS, method =
-	// RequestMethod.GET, headers = RestURIConstants.HEADER_JSON)
-	// public @ResponseBody
-	// List<ListaDeseos> getAllListasDeseos() {
-	// Collection<ListaDeseos> lldd = this.listaDeseosService.obtenerListas();
-	//
-	// if (lldd != null && lldd.size() > 0) {
-	// return new ArrayList<ListaDeseos>(lldd);
-	// }
-	// return null;
-	//
-	// }
 
 }

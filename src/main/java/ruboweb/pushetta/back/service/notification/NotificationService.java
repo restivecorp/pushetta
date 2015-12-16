@@ -8,13 +8,17 @@ public interface NotificationService {
 
 	Notification createNotification(Notification n);
 	
-	void createNotificationAndSend(Notification n);
+	Notification  createNotificationAndSend(Notification n);
 
 	void deleteNotification(Long id);
 
 	Notification findOneNotification(Long id);
 
-	public List<Notification> getListNotifications();
+	List<Notification> getListNotifications();
+	List<Notification> getListNotificationsPending();
+	List<Notification> getListNotificationsError();
+	List<Notification> getListNotificationsSent();
 
 	void sendNotifications();
+	void sendNotificationsWithError();
 }

@@ -20,4 +20,7 @@ public interface NotificationRepository extends
 	
 	@Query("select n from Notification n where n.status like 'ERROR:%'")
 	public List<Notification> findNotificationsWithError();
+	
+	@Query("select n from Notification n where n.status = 'SENT'")
+	public List<Notification> findNotificationsSent();
 }
