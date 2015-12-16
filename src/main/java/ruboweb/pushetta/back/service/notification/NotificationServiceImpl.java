@@ -41,10 +41,10 @@ public class NotificationServiceImpl implements NotificationService {
 	private String channel;
 
 	@Value("${pushetta.cfg.days_available}")
-	private int daysAvailable;
+	private String daysAvailable;
 
 	@Value("${pushetta.cfg.enable}")
-	private boolean enable;
+	private String enable;
 
 	@Autowired
 	private NotificationRepository notificationRepository;
@@ -115,11 +115,6 @@ public class NotificationServiceImpl implements NotificationService {
 	}
 
 	private void send(Notification n) {
-		if (!this.enable) {
-			logger.error("pushetta.cfg.enable is not enabled");
-			return;
-		}
-
 		try {
 			this.sendPushetta(n);
 			n.setStatus("SENT");
@@ -135,6 +130,16 @@ public class NotificationServiceImpl implements NotificationService {
 	}
 
 	private void sendPushetta(Notification n) throws NotificatorException {
+		try {
+			if (!Boolean.parseBoolean(this.enable)) {
+				logger.error("pushetta.cfg.enable is not enabled");
+				return;
+			}
+		} catch (Exception e) {
+			logger.error("Invalid boolean value ${pushetta.cfg.enable}");
+			return;
+		}
+		
 		try {
 			String dateAvailable = this.getDate(this.daysAvailable);
 			String url = this.api + this.channel + "/";
@@ -169,9 +174,17 @@ public class NotificationServiceImpl implements NotificationService {
 		}
 	}
 
-	private String getDate(int days) {
+	private String getDate(String days) {
+		int d = 1;
+		try {
+			d = Integer.parseInt(days);
+		} catch (Exception e) {
+			d = 1;
+			logger.error("NumberFormatException: For input string: ${pushetta.cfg.days_available}");
+		}
+
 		Calendar today = GregorianCalendar.getInstance();
-		today.add(Calendar.DATE, days);
+		today.add(Calendar.DATE, d);
 
 		String date = today.get(Calendar.YEAR) + "-"
 				+ (today.get(Calendar.MONTH) + 1) + "-"

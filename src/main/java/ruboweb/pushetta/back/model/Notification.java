@@ -1,5 +1,6 @@
 package ruboweb.pushetta.back.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -37,11 +38,18 @@ public class Notification extends AbstractPersistable<Long> {
 		this.creationDate = new Date(System.currentTimeMillis());
 	}
 
-	public Notification(String text, Date scheduleDate) {
+	public Notification(String text, String date) {
+
+		try {
+			this.scheduleDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+		} catch (Exception e) {
+			throw new IllegalArgumentException(
+					"Notification#new. date has wrong format. Expected: yyyy-MM-dd");
+		}
+		
 		text = text.replaceAll("\r", "");
 		text = text.replaceAll("\n", "");
 		this.text = text;
-		this.scheduleDate = scheduleDate;
 		this.creationDate = new Date(System.currentTimeMillis());
 		this.status = null;
 		this.trySend = null;
