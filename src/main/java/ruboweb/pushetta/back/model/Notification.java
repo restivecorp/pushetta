@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -18,6 +20,9 @@ public class Notification extends AbstractPersistable<Long> {
 
 	@Column(nullable = false)
 	private Date creationDate;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	private User user;
 
 	@Column(nullable = false, length = 300)
 	private String text;
@@ -38,7 +43,7 @@ public class Notification extends AbstractPersistable<Long> {
 		this.creationDate = new Date(System.currentTimeMillis());
 	}
 
-	public Notification(String text, String date) {
+	public Notification(User user, String text, String date) {
 
 		try {
 			this.scheduleDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
@@ -46,13 +51,28 @@ public class Notification extends AbstractPersistable<Long> {
 			throw new IllegalArgumentException(
 					"Notification#new. date has wrong format. Expected: yyyy-MM-dd");
 		}
-		
+
 		text = text.replaceAll("\r", "");
 		text = text.replaceAll("\n", "");
+		this.user = user;
 		this.text = text;
 		this.creationDate = new Date(System.currentTimeMillis());
 		this.status = null;
 		this.trySend = null;
+	}
+
+	/**
+	 * @return the user
+	 */
+	public User getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getText() {

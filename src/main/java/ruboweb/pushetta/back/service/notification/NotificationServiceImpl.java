@@ -18,7 +18,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import ruboweb.pushetta.back.model.Notification;
+import ruboweb.pushetta.back.model.User;
 import ruboweb.pushetta.back.repository.NotificationRepository;
+import ruboweb.pushetta.back.repository.UserRepository;
 import ruboweb.pushetta.exception.NotificatorException;
 
 @Service
@@ -49,6 +51,9 @@ public class NotificationServiceImpl implements NotificationService {
 	@Autowired
 	private NotificationRepository notificationRepository;
 
+	@Autowired
+	private UserRepository userRepository;
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -57,6 +62,22 @@ public class NotificationServiceImpl implements NotificationService {
 		if (n == null) {
 			throw new IllegalArgumentException(
 					"NotificationServiceImpl#createNotification n must not be null");
+		}
+
+		if (n.getUser() == null) {
+			throw new IllegalArgumentException(
+					"NotificationServiceImpl#createNotification n.user must not be null");
+		}
+
+		if (n.getUser().getId() == null) {
+			throw new IllegalArgumentException(
+					"NotificationServiceImpl#createNotification n.user.id must not be null");
+		}
+
+		User usr = this.userRepository.findOne(n.getUser().getId());
+		if (usr == null) {
+			throw new IllegalArgumentException(
+					"NotificationServiceImpl#createNotification user not exist in data base");
 		}
 
 		return this.notificationRepository.save(n);
