@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+		<title>Schedule Notificator System with Pushetta</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><h:outputScript name="html5shiv.js" library="assets/js/ie" /><![endif]-->
+		<h:outputStylesheet name="main.css" library="assets/css" />
+		<!--[if lte IE 8]><h:outputStylesheet name="ie8.css" library="assets/css" /><![endif]-->
+	</h:head>
+    
+	<h:body>
+	
+		<div id="page">
+			
+			<div id="header">
+				<ui:insert name="header" >
+					<ui:include src="/template/common/header.xhtml" />
+				</ui:insert>
+		    </div>
+		    
+		   	<div id="menu">
+				<ui:insert name="menu" >
+					<ui:include src="/template/common/menu.xhtml" />
+				</ui:insert>
+		    </div>
+		    
+		    <div id="content">
+		    	<div class="inner">
+			   		<ui:insert name="content" >
+			   		
+			   		</ui:insert>
+			   	</div>
+		    </div>
+		    		    
+		    <div id="footer">
+		    	<ui:insert name="footer" >
+		    		<ui:include src="/template/common/footer.xhtml" />
+		    	</ui:insert>
+	    	</div>
+	    	
+	    </div>
+    
+    </h:body>
+
+</html>
