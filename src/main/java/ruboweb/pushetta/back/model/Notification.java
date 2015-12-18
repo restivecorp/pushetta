@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "notification")
 public class Notification extends AbstractPersistable<Long> {
@@ -21,6 +23,7 @@ public class Notification extends AbstractPersistable<Long> {
 	@Column(nullable = false)
 	private Date creationDate;
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	private User user;
 

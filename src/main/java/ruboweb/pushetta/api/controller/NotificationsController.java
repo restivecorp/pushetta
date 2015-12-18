@@ -42,14 +42,16 @@ public class NotificationsController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	public NotificationsController() {
 
 	}
 
 	@RequestMapping(value = CREATE_NOTIFICATION, method = RequestMethod.POST, headers = HEADER_JSON)
 	public @ResponseBody
-	Notification create(@RequestHeader("Auth") String token, @RequestBody Notification param) {
+	Notification create(
+			@RequestHeader(value = "Auth", required = true) String token,
+			@RequestBody Notification param) {
 		param = this.validate(param, token);
 		param = this.notificationService.createNotification(param);
 		return param;
@@ -57,7 +59,9 @@ public class NotificationsController {
 
 	@RequestMapping(value = CREATE_NOTIFICATION_AND_SEND, method = RequestMethod.POST, headers = HEADER_JSON)
 	public @ResponseBody
-	Notification createAndSend(@RequestHeader("Auth") String token, @RequestBody Notification param) {
+	Notification createAndSend(
+			@RequestHeader(value = "Auth", required = true) String token,
+			@RequestBody Notification param) {
 		param = this.validate(param, token);
 		param = this.notificationService.createNotificationAndSend(param);
 		return param;
@@ -162,14 +166,24 @@ public class NotificationsController {
 			throw new IllegalArgumentException(
 					"NotificationsController#validate. date must not be null.");
 		}
+
+		if (token == null) {
+			throw new IllegalArgumentException(
+					"NotificationsController#validate. token must not be null.");
+		}
 		
-		User u = this.userService.findOneUser(1L);
+		if (token.isEmpty()) {
+			throw new IllegalArgumentException(
+					"NotificationsController#validate. token must not be empty.");
+		}
 		
-		if (u == null ){
+		User u = this.userService.findUserByToken(token);
+
+		if (u == null) {
 			throw new IllegalArgumentException(
 					"NotificationsController#validate. token not valid.");
 		}
-		
+
 		param.setUser(u);
 		return param;
 	}
