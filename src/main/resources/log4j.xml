@@ -14,6 +14,7 @@
 
     <appender name="file" class="org.apache.log4j.RollingFileAppender">
 		<param name="File" value="pushetta.log" />
+		<!-- <param name="File" value="${pushetta.path}/pushetta.log" /> -->
 		<param name="maxFileSize" value="1MB" />
 		<param name="maxBackupIndex" value="4" />
 		<layout class="org.apache.log4j.PatternLayout">
