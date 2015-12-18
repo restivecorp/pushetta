@@ -79,7 +79,7 @@ public class TestNotifications extends TestBase {
 
 	@Before
 	public void createUser() {
-		this.u = new User("Dummy");
+		this.u = new User("Dummy");		
 		this.u = this.userRepository.save(u);
 	}
 }
