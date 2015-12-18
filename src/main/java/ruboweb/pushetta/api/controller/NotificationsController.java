@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ruboweb.pushetta.back.model.Notification;
+import ruboweb.pushetta.back.model.User;
 import ruboweb.pushetta.back.service.notification.NotificationService;
+import ruboweb.pushetta.back.service.user.UserService;
 
 @Controller
 @RequestMapping("/notify")
@@ -37,22 +40,25 @@ public class NotificationsController {
 	@Autowired
 	private NotificationService notificationService;
 
+	@Autowired
+	private UserService userService;
+	
 	public NotificationsController() {
 
 	}
 
 	@RequestMapping(value = CREATE_NOTIFICATION, method = RequestMethod.POST, headers = HEADER_JSON)
 	public @ResponseBody
-	Notification create(@RequestBody Notification param) {
-		this.validate(param);
+	Notification create(@RequestHeader("Auth") String token, @RequestBody Notification param) {
+		param = this.validate(param, token);
 		param = this.notificationService.createNotification(param);
 		return param;
 	}
 
 	@RequestMapping(value = CREATE_NOTIFICATION_AND_SEND, method = RequestMethod.POST, headers = HEADER_JSON)
 	public @ResponseBody
-	Notification createAndSend(@RequestBody Notification param) {
-		this.validate(param);
+	Notification createAndSend(@RequestHeader("Auth") String token, @RequestBody Notification param) {
+		param = this.validate(param, token);
 		param = this.notificationService.createNotificationAndSend(param);
 		return param;
 	}
@@ -137,7 +143,7 @@ public class NotificationsController {
 		}
 	}
 
-	private void validate(Notification param) {
+	private Notification validate(Notification param, String token) {
 		if (param == null) {
 			throw new IllegalArgumentException(
 					"NotificationsController#validate. notification must not be null.");
@@ -156,6 +162,16 @@ public class NotificationsController {
 			throw new IllegalArgumentException(
 					"NotificationsController#validate. date must not be null.");
 		}
+		
+		User u = this.userService.findOneUser(1L);
+		
+		if (u == null ){
+			throw new IllegalArgumentException(
+					"NotificationsController#validate. token not valid.");
+		}
+		
+		param.setUser(u);
+		return param;
 	}
 
 }

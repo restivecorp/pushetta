@@ -9,6 +9,8 @@ public interface UserService {
 	User createOrUpdateUser(User u);
 
 	User findOneUser(Long id);
+	
+	User findUserByToken(String token);
 
 	List<User> getUsers();
 

@@ -40,8 +40,24 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public User findUserByToken(String token) {
+		if (token == null) {
+			throw new IllegalArgumentException(
+					"UserServiceImpl#findUserByToken token must not be null");
+		}
+		
+		if (token.isEmpty()) {
+			throw new IllegalArgumentException(
+					"UserServiceImpl#findUserByToken token must not be empty");
+		}
+		return this.userRepository.findUserByToken(token);
+	}
+	
+	@Override
 	public List<User> getUsers() {
 		return this.userRepository.findAll();
 	}
+
+
 
 }
