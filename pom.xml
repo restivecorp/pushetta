@@ -196,7 +196,7 @@
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
 					<webApp>
-						<contextPath>/noty</contextPath>
+						<contextPath>/pushetta</contextPath>
 					</webApp>
 				</configuration>
 			</plugin>
