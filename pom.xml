@@ -194,6 +194,7 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>9.2.11.v20150529</version>
 				<configuration>
+					<jvmArgs>-XX:PermSize=1024M -XX:MaxPermSize=2048M</jvmArgs>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
 					<webApp>
 						<contextPath>/pushetta</contextPath>

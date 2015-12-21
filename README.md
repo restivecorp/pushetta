@@ -14,9 +14,8 @@ This is a small project to implement and test a lot of technologies such as:
 * -- Java Validation
 * Rest WS
 * Servlets
-* -- JSF 2.0
-* -- ButterFaces
-* -- Boostrap
+* JSF 2.0
+* Primefaces
 * Java Mail
 * jUnit
 * Spring Test
@@ -56,20 +55,22 @@ In this file configure the following parameters, the rest may be changed if desi
 
 ## How to run?
 1. Clone the repository
-2. create the database and the user needed to access
+2. Create the database and the user needed to access
 3. Create the table with ddl (src/ddl/01.createTables.sql)
 4. Configure *.properties file
 5. Execute mvn jetty:run or deploy in container
-5. The application runs
-6. Go to http://localhost:8080/pushetta to view control panel
-7. Send rest requests
-8. Let the application do its job. You will be notified at the time
+6. The application runs
+7. Go to http://localhost:8080/pushetta to view control panel
+8. Manage Users
+9. Create Notifications
+10. Send rest requests
+11. Let the application do its job. You will be notified at the time
 
 ## The API rest
 The base URL might be something like http://localhost:8080/pushetta then:
 
-* POST: /rest/notify/create (body example >> {"text":"Dumy text", "scheduleDate":"2015-12-01"})
-* POST: /rest/notify/createSend (body example >> {"text":"Dumy text", "scheduleDate":"2015-12-01"})
+* POST: /rest/notify/create (body example >> {"text":"Dumy text", "scheduleDate":"2015-12-01"}) // require Auth http header with user token
+* POST: /rest/notify/createSend (body example >> {"text":"Dumy text", "scheduleDate":"2015-12-01"}) // require Auth hhtp header with user token
 * GET:  /rest/notify/get/{id}
 * GET:  /rest/notify/by/{status} (valid params >> PENDING | SENT | ERROR | ALL)
 * GET:  /rest/notify/delete/{id}
