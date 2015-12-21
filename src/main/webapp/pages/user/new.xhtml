@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+    	<ui:composition template="/template/defaultLayout.xhtml">
+    	
+    		<ui:define name="content">
+    		
+				<article class="box post post-excerpt">
+					<header>
+						<h2>Manage Users</h2>
+						<p>Create, modify, and list users.</p>
+					</header>
+					<div class="info">
+						<span class="date">
+							<span class="month">#{timeBean.month}</span>
+						 	<span class="day">#{timeBean.day}</span>
+						 	<span class="year">, #{timeBean.year}</span>
+						 </span>
+		
+						<ul class="stats">
+							<li><a href="#" class="icon fa-users">#{timeBean.totalUsers}</a></li>	
+						</ul>
+					</div>
+					
+					<h:form id="form">
+						 <p:panel id="panel" header="Create new User">
+						 	<h:panelGrid columns="3" cellpadding="5">
+					            <p:outputLabel for="name" value="User Name:" />
+					            <p:inputText id="name" value="#{userNewBean.name}" required="true" label="name">
+					                <f:validateLength minimum="1" maximum="255" />
+					            </p:inputText>
+					            <p:message for="name" display="icon" />				 
+					        </h:panelGrid>
+					 
+				     	 	<p:commandButton value="Save" update="panel" actionListener="#{userNewBean.createNewUser}" action="#{navigationBean.goToUsersPage}" icon="ui-icon-check" />
+						 </p:panel>
+					</h:form>
+				</article>
+    		</ui:define>
+
+    	</ui:composition>
+    </h:body>
+</html>
