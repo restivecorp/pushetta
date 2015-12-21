@@ -24,12 +24,12 @@ public class NavigationBean implements Serializable {
 
 	public String goToDataControlPage() {
 		this.menuBean.activeDataControl();
-		return "/pages/dataControl" + REDIRECT;
+		return "/pages/cm/dataControl" + REDIRECT;
 	}
 
 	public String goToUsersPage() {
 		this.menuBean.activeUsers();
-		return "/pages/users" + REDIRECT;
+		return "/pages/user/users" + REDIRECT;
 	}
 
 	public String goToCreateNewUser() {
@@ -39,22 +39,22 @@ public class NavigationBean implements Serializable {
 
 	public String goToCreateOnePage() {
 		this.menuBean.activeCreationOne();
-		return "/pages/createOne" + REDIRECT;
+		return "/pages/notifications/createOne" + REDIRECT;
 	}
 
 	public String goToListReportsPage() {
 		this.menuBean.activeListReports();
-		return "/pages/listReports" + REDIRECT;
+		return "/pages/notifications/listReports" + REDIRECT;
 	}
 
 	public String goToSendNotificationsPage() {
 		this.menuBean.activeSendNotifications();
-		return "/pages/sendNotifications" + REDIRECT;
+		return "/pages/notifications/sendNotifications" + REDIRECT;
 	}
 
 	public String goToApiRestPage() {
 		this.menuBean.activeApi();
-		return "/pages/apiRest" + REDIRECT;
+		return "/pages/api/apiRest" + REDIRECT;
 	}
 
 	public MenuBean getMenuBean() {
