@@ -3,10 +3,10 @@ package ruboweb.pushetta.jsf.beans.common;
 import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class MenuBean implements Serializable {
 
 	private static final long serialVersionUID = 1651519768277677012L;

@@ -3,10 +3,11 @@ package ruboweb.pushetta.jsf.beans;
 import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+
+import org.springframework.context.annotation.Scope;
 
 @ManagedBean
-@RequestScoped
+@Scope("request")
 public class DataControlBean implements Serializable {
 
 	private static final long serialVersionUID = 20291115150195602L;

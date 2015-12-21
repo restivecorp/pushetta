@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import ruboweb.pushetta.back.model.Notification;
@@ -19,7 +19,7 @@ import ruboweb.pushetta.back.service.user.UserService;
 
 @Component
 @ManagedBean
-@RequestScoped
+@Scope("request")
 public class TimeBean implements Serializable {
 
 	private static final long serialVersionUID = 7870948882653500929L;
