@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+    	<ui:composition template="/template/defaultLayout.xhtml">
+    	
+    		<ui:define name="content">
+				<article class="box post post-excerpt">
+					<header>
+						<h2>API Rest - Doc</h2>
+						<p>Documentation about the API Rest.</p>
+					</header>
+					<div class="table-responsive">
+						<table class="table table-hover">
+							<thead> 
+								<tr> 
+									<th><strong>Method</strong></th> 
+									<th><strong>URL</strong></th> 
+									<th><strong>Example</strong></th> 
+								</tr> 
+							</thead>
+							
+							<tbody>
+								<tr>
+									<th scope="row">POST</th> 
+									<td>/rest/notify/create</td> 
+									<td>
+										Body: {"text":"Dumy text", "scheduleDate":"2015-12-01"} <br />
+										Require "Auth" http header with user token
+									</td> 
+								</tr> 
+								
+								<tr>
+									<th scope="row">POST</th> 
+									<td>/rest/notify/createSend</td> 
+									<td>
+										Body: {"text":"Dumy text", "scheduleDate":"2015-12-01"} <br />
+										Require "Auth" http header with user token
+									</td> 
+								</tr>
+								
+								<tr>
+									<th scope="row">GET</th> 
+									<td>/rest/notify/get/{id}</td> 
+									<td>
+										
+									</td> 
+								</tr> 
+								
+								<tr>
+									<th scope="row">GET</th> 
+									<td>/rest/notify/by/{status}</td> 
+									<td>
+										Valid params >> PENDING | SENT | ERROR | ALL
+									</td> 
+								</tr>							
+								
+								<tr>
+									<th scope="row">GET</th> 
+									<td>/rest/notify/delete/{id}</td> 
+									<td>
+										
+									</td> 
+								</tr>
+								
+								<tr>
+									<th scope="row">GET</th> 
+									<td>/rest/notify/send/{kind}</td> 
+									<td>
+										Valid kinds >> PENDING | ERROR
+									</td> 
+								</tr>												
+							</tbody>
+						</table>
+					</div>
+				</article>
+    		</ui:define>
+
+    	</ui:composition>
+    </h:body>
+</html>

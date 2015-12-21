@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml"   
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"   
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <body>
 	    <ui:composition>
@@ -7,17 +8,20 @@
 			<div id="sidebar">
 
 				<!-- Logo -->
-				<h1 id="logo"><a href="#"><abbr title="Schedule Notificator System">SNS</abbr> Pushetta</a></h1>
+				<h1 id="logo"><a href="#{request.contextPath}/index.xhtml"><abbr title="Schedule Notificator System">SNS</abbr> Pushetta</a></h1>
 
 				<!-- Nav -->
 				<nav id="nav">
-					<ul>
-						<li class="current"><a href="#">Data Control</a></li>
-						<li><a href="#">Create one</a></li>
-						<li><a href="#">List Notifications</a></li>
-						<li><a href="#">Send Options</a></li>
-						<li><a href="#">API rest - Doc</a></li>
-					</ul>
+					<h:form>
+						<ul>
+							<li class="#{menuBean.dataControl}"><h:commandLink action="#{navigationBean.goToDataControlPage}" value="Data Control" /></li>
+							<li class="#{menuBean.users}"><h:commandLink action="#{navigationBean.goToUsersPage}" value="Manage Users" /></li>
+							<li class="#{menuBean.createOne}"><h:commandLink action="#{navigationBean.goToCreateOnePage}" value="Create One" /></li>
+							<li class="#{menuBean.listReports}"><h:commandLink action="#{navigationBean.goToListReportsPage}" value="List - Reports" /></li>
+							<li class="#{menuBean.sendNotifications}"><h:commandLink action="#{navigationBean.goToSendNotificationsPage}" value="Send Notifications" /></li>
+							<li class="#{menuBean.api}"><h:commandLink action="#{navigationBean.goToApiRestPage}" value="API Rest - Doc" /></li>
+						</ul>
+					</h:form>
 				</nav>
 
 				<!-- Copyright -->
