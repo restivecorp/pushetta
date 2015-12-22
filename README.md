@@ -57,14 +57,16 @@ In this file configure the following parameters, the rest may be changed if desi
 1. Clone the repository
 2. Create the database and the user needed to access
 3. Create the table with ddl (src/ddl/01.createTables.sql)
-4. Configure *.properties file
-5. Execute mvn jetty:run or deploy in container
-6. The application runs
-7. Go to http://localhost:8080/pushetta to view control panel
-8. Manage Users
-9. Create Notifications
-10. Send rest requests
-11. Let the application do its job. You will be notified at the time
+4. Copy  src/cfg/*.properties files to folder p.e: /usr/pushetta or c:\pushetta
+5. Create a enviroment variable p.e: EXPORT pushetta.path=/usr/pushetta or SET pushetta.path=c:\pushetta in windows
+6. Configure *.properties file 
+7. Execute mvn jetty:run or deploy in container
+8. The application runs
+9. Go to http://localhost:8080/pushetta to view control panel
+10. Manage Users
+11. Create Notifications
+12. Send rest requests
+13. Let the application do its job. You will be notified at the time
 
 ## The API rest
 The base URL might be something like http://localhost:8080/pushetta then:
