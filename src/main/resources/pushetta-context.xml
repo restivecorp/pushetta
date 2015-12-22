@@ -12,21 +12,6 @@
 	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd  
 	http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd">
 
-	
-	<!-- local -->
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="ignoreUnresolvablePlaceholders" value="false" />
-		<property name="locations">
-			<list>
-				<value>classpath:db.properties</value>
-				<value>classpath:pushetta.properties</value>
-				<value>classpath:cron.properties</value>
-			</list>
-		</property>
-	</bean>
-	
-	<!-- PROD
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="ignoreUnresolvablePlaceholders" value="false" />
@@ -38,8 +23,7 @@
 			</list>
 		</property>
 	</bean>
-	-->
-	
+
 	<context:annotation-config />	
 	<task:annotation-driven />
 	<context:component-scan base-package = "ruboweb.pushetta" />	
