@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:body>
     	<ui:composition template="/template/defaultLayout.xhtml">
@@ -10,7 +11,7 @@
 				<article class="box post post-excerpt">
 					<header>
 						<h2>Send Notifications</h2>
-						<p>.</p>
+						<p>Send and forward Notifications.</p>
 					</header>
 					<div class="info">
 						<span class="date">
@@ -18,12 +19,38 @@
 						 	<span class="day">#{timeBean.day}</span>
 						 	<span class="year">, #{timeBean.year}</span>
 						 </span>
+		
+						<ul class="stats">
+							<li><a href="#" class="icon fa-database">#{timeBean.totalNotifications}</a></li>
+							<li><a href="#" class="icon fa-cogs">#{timeBean.totalPending}</a></li>
+							<li><a href="#" class="icon fa-check">#{timeBean.totalSent}</a></li>
+							<li><a href="#" class="icon fa-exclamation-triangle">#{timeBean.totalErrors}</a></li>
+						</ul>
 					</div>
 					
+					<h3>Send Notifications now</h3>
 					<p>
-				
+						You can force send pending notifications (#{timeBean.totalNotificationsPlanned}), if desired. 
+						Click the button to send pending notifications.
+						<h:form>
+						    <p:growl id="growl" life="2000" /> 
+						    <p:commandButton value="SEND NOW" id="send" update="growl" actionListener="#{sendNotificationBean.send}" 
+						    styleClass="ui-priority-primary" icon="ui-icon-triangle-1-e" ajax="false" />
+						</h:form>
+						
 					</p>
+					
+					<br />
+					
+					<h3>Forward error notifications</h3>
 					<p>
+						On the other hand, you can forward notifications with errors (#{timeBean.totalErrors}). 
+						Click the button to forward notifications.
+						<h:form>
+						    <p:growl id="growl" life="2000" /> 
+						    <p:commandButton value="FORWARD NOW" id="forward" update="growl" actionListener="#{sendNotificationBean.forward}" 
+						    styleClass="ui-priority-primary" icon="ui-icon-arrowreturnthick-1-w" ajax="false" />
+						</h:form>
 					</p>
 				</article>
     		</ui:define>
