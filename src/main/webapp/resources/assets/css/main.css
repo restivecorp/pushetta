@@ -1553,7 +1553,7 @@
 	body {
 		background-color: #e8e8e8;
 		background-image: url("#{resource['images:bg02.png']}");
-		font-family: 'Source Sans Pro', sans-serif;
+		font-family: 'Source Sans Pro', sans-serif !important;
 		font-weight: 400;
 		color: #565656;
 	}
@@ -1570,13 +1570,13 @@
 		}
 
 	input, textarea, select {
-		font-family: 'Source Sans Pro', sans-serif;
+		font-family: 'Source Sans Pro', sans-serif !important;
 		font-weight: 400;
 		color: #565656;
 	}
 
 	a {
-		color: #c94663;
+		color: #e78f08;
 	}
 
 	strong, b {
@@ -1585,7 +1585,7 @@
 	}
 
 	h2, h3, h4, h5, h6 {
-		font-family: 'Open Sans Condensed', sans-serif;
+		font-family: 'Open Sans Condensed', sans-serif !important;
 		font-weight: 700;
 		color: #232323;
 	}
@@ -1665,7 +1665,7 @@
 /* Form */
 
 	form label {
-		font-family: 'Open Sans Condensed', sans-serif;
+		font-family: 'Source Sans Pro', sans-serif !important;
 		font-weight: 700;
 		color: #232323;
 		margin: 0 0 0.75em 0;
@@ -1716,7 +1716,7 @@
 	}
 
 		header > p {
-			font-family: 'Open Sans Condensed', sans-serif;
+			font-family: 'Open Sans Condensed', sans-serif !important;
 			font-weight: 300;
 			display: block;
 			margin-top: 1em;
@@ -1784,14 +1784,14 @@
 		text-align: center;
 		box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.15);
 		color: #fff;
-		font-family: 'Open Sans Condensed', sans-serif;
+		font-family: 'Open Sans Condensed', sans-serif !important;
 		font-weight: 700;
 		text-decoration: none;
 		-moz-transition: background-color .25s ease-in-out, color .25s ease-in-out;
 		-webkit-transition: background-color .25s ease-in-out, color .25s ease-in-out;
 		-ms-transition: background-color .25s ease-in-out, color .25s ease-in-out;
 		transition: background-color .25s ease-in-out, color .25s ease-in-out;
-		text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.5);
+		/*text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.5);*/
 	}
 
 		input[type="button"]:disabled, input[type="button"].disabled,
@@ -1871,7 +1871,7 @@
 
 	.pagination .pages {
 		display: inline-block;
-		font-family: 'Open Sans Condensed', sans-serif;
+		font-family: 'Open Sans Condensed', sans-serif !important;
 		font-weight: 700;
 	}
 
@@ -2167,7 +2167,7 @@
 			color: #fff;
 			line-height: 44px;
 			font-size: 1.25em;
-			font-family: 'Open Sans Condensed', sans-serif;
+			font-family: 'Open Sans Condensed', sans-serif !important;
 			font-weight: 700;
 			letter-spacing: 0.1em;
 			text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.5);
@@ -2410,7 +2410,7 @@
 		/* Logo */
 
 			#logo {
-				font-family: 'Open Sans Condensed', sans-serif;
+				font-family: 'Open Sans Condensed', sans-serif !important;
 				font-weight: 700;
 				font-size: 2em;
 				letter-spacing: 0.1em;
@@ -2418,7 +2418,7 @@
 
 				#logo a {
 					display: block;
-					background-color: #c94663;
+					background-color: #f6a828;
 					background-image: url("#{resource['images:bg01.png']}");
 					padding: 0.875em 0.25em;
 					border-radius: 0.2em;
@@ -2525,7 +2525,7 @@
 				.box.post .info .date {
 					position: relative;
 					z-index: 1;
-					font-family: 'Open Sans Condensed', sans-serif;
+					font-family: 'Open Sans Condensed', sans-serif !important;
 					font-weight: 400;
 					text-align: center;
 					display: block;
@@ -2759,7 +2759,7 @@
 
 				.box.post header > p {
 					font-size: 1em;
-					font-family: 'Source Sans Pro', sans-serif;
+					font-family: 'Source Sans Pro', sans-serif !important;
 					line-height: 1.5em;
 				}
 
@@ -2931,3 +2931,13 @@
 			}
 
 	}
+	
+
+.ui-widget {
+    font-family: 'Source Sans Pro', sans-serif !important;
+    font-size: 1.1em;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger {
+    width: 40px !important;
+}
