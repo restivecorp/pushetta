@@ -11,7 +11,6 @@ This is a small project to implement and test a lot of technologies such as:
 * MySQL
 * Hibernate
 * JPA
-* -- Java Validation
 * Rest WS
 * Servlets
 * JSF 2.0
