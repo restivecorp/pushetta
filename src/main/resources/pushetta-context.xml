@@ -24,6 +24,19 @@
 		</property>
 	</bean>
 
+	<bean id="serverLog4jInitialization"
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
+		p:target-class="org.springframework.util.Log4jConfigurer"
+		p:target-method="initLogging">
+		<property name="arguments">
+			<list>
+				<bean class="java.lang.String">
+					<constructor-arg value="file:${pushetta.path}/log4j.xml" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
 	<context:annotation-config />	
 	<task:annotation-driven />
 	<context:component-scan base-package = "ruboweb.pushetta" />	
