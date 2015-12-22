@@ -112,7 +112,7 @@ public class NotificationsController {
 		return null;
 	}
 
-	@RequestMapping(value = DELETE_NOTIFICATION, method = RequestMethod.GET, headers = HEADER_JSON)
+	@RequestMapping(value = DELETE_NOTIFICATION, method = RequestMethod.PUT, headers = HEADER_JSON)
 	public void deleteNotification(@PathVariable("id") Long id) {
 		if (id == null) {
 			throw new IllegalArgumentException(
