@@ -37,7 +37,7 @@
  
     <root>
         <priority value="error" />
-        <appender-ref ref="console" />
+        <!-- <appender-ref ref="console" /> -->
         <appender-ref ref="file" />
         <!-- <appender-ref ref="email" /> -->
     </root>
