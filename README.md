@@ -69,10 +69,11 @@ In this file configure the following parameters, the rest may be changed if desi
 ## The API rest
 The base URL might be something like http://localhost:8080/pushetta then:
 
-* POST: /rest/notify/create (body example >> {"text":"Dumy text", "scheduleDate":"2015-12-01"}) // require Auth http header with user token
-* POST: /rest/notify/createSend (body example >> {"text":"Dumy text", "scheduleDate":"2015-12-01"}) // require Auth hhtp header with user token
+* POST: /rest/notify/create (body example >> {"text":"Dumy text", "scheduleDate":"2015-12-01"}) 
+* POST: /rest/notify/createSend (body example >> {"text":"Dumy text", "scheduleDate":"2015-12-01"})
 * GET:  /rest/notify/get/{id}
+* PUT:  /rest/notify/delete/{id}
 * GET:  /rest/notify/by/{status} (valid params >> PENDING | SENT | ERROR | ALL)
-* GET:  /rest/notify/delete/{id}
 * GET:  /rest/notify/send/{kind} (valid kinds >> PENDING | ERROR )
 
+NOTE: POST methods require "Auth" http header with user token
