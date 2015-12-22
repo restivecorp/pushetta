@@ -12,7 +12,6 @@ public class MenuBean implements Serializable {
 	private static final long serialVersionUID = 1651519768277677012L;
 
 	private String CSS_ID = "current";
-	private String dataControl;
 	private String users;
 	private String createOne;
 	private String listReports;
@@ -23,17 +22,7 @@ public class MenuBean implements Serializable {
 
 	}
 
-	public void activeDataControl() {
-		this.dataControl = this.CSS_ID;
-		this.users = "";
-		this.createOne = "";
-		this.listReports = "";
-		this.sendNotifications = "";
-		this.api = "";
-	}
-
 	public void activeUsers() {
-		this.dataControl = "";
 		this.users = this.CSS_ID;
 		this.createOne = "";
 		this.listReports = "";
@@ -42,7 +31,6 @@ public class MenuBean implements Serializable {
 	}
 
 	public void activeCreationOne() {
-		this.dataControl = "";
 		this.users = "";
 		this.createOne = this.CSS_ID;
 		this.listReports = "";
@@ -51,7 +39,6 @@ public class MenuBean implements Serializable {
 	}
 
 	public void activeListReports() {
-		this.dataControl = "";
 		this.users = "";
 		this.createOne = "";
 		this.listReports = this.CSS_ID;
@@ -60,7 +47,6 @@ public class MenuBean implements Serializable {
 	}
 
 	public void activeSendNotifications() {
-		this.dataControl = "";
 		this.users = "";
 		this.createOne = "";
 		this.listReports = "";
@@ -69,7 +55,6 @@ public class MenuBean implements Serializable {
 	}
 
 	public void activeApi() {
-		this.dataControl = "";
 		this.users = "";
 		this.createOne = "";
 		this.listReports = "";
@@ -79,10 +64,6 @@ public class MenuBean implements Serializable {
 
 	public String getCSS_ID() {
 		return CSS_ID;
-	}
-
-	public String getDataControl() {
-		return dataControl;
 	}
 
 	public String getUsers() {

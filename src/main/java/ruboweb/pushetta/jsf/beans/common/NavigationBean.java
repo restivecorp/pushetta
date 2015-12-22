@@ -22,11 +22,6 @@ public class NavigationBean implements Serializable {
 
 	}
 
-	public String goToDataControlPage() {
-		this.menuBean.activeDataControl();
-		return "/pages/cm/dataControl" + REDIRECT;
-	}
-
 	public String goToUsersPage() {
 		this.menuBean.activeUsers();
 		return "/pages/user/users" + REDIRECT;
