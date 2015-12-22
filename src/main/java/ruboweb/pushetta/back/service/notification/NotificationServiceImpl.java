@@ -182,11 +182,11 @@ public class NotificationServiceImpl implements NotificationService {
 		try {
 			if (!Boolean.parseBoolean(this.enable)) {
 				logger.error("pushetta.cfg.enable is not enabled");
-				return;
+				throw new NotificatorException("pushetta.cfg.enable is not enabled");
 			}
 		} catch (Exception e) {
 			logger.error("Invalid boolean value ${pushetta.cfg.enable}");
-			return;
+			throw new NotificatorException("Invalid boolean value ${pushetta.cfg.enable}");
 		}
 
 		try {

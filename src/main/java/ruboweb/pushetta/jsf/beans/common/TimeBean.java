@@ -50,6 +50,30 @@ public class TimeBean implements Serializable {
 		}
 		return "0";
 	}
+	
+	public String getTotalErrors() {
+		List<Notification> n = this.notificationService.getListNotificationsError();
+		if (n != null) {
+			return n.size() + "";
+		}
+		return "0";
+	}
+	
+	public String getTotalSent() {
+		List<Notification> n = this.notificationService.getListNotificationsSent();
+		if (n != null) {
+			return n.size() + "";
+		}
+		return "0";
+	}
+	
+	public String getTotalPending() {
+		List<Notification> n = this.notificationService.getListNotificationsPending();
+		if (n != null) {
+			return n.size() + "";
+		}
+		return "0";
+	}
 
 	public String getTotalUsers() {
 		List<User> u = this.userService.getUsers();

@@ -64,16 +64,30 @@ public class Notification extends AbstractPersistable<Long> {
 		this.trySend = null;
 	}
 
-	/**
-	 * @return the user
-	 */
+	public String getStatusName() {
+		if (this.status == null) {
+			return "Pending";
+		}
+		
+		if (this.status.equals("")) {
+			return "Pending";
+		}
+		
+		if (this.status.startsWith("ERROR")) {
+			return "Error";
+		}
+		
+		if (this.status.startsWith("SENT")) {
+			return "Send";
+		}
+		
+		return "";
+	}
+
 	public User getUser() {
 		return user;
 	}
 
-	/**
-	 * @param user the user to set
-	 */
 	public void setUser(User user) {
 		this.user = user;
 	}

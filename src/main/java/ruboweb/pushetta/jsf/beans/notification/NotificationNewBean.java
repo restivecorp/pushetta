@@ -58,9 +58,9 @@ public class NotificationNewBean implements Serializable {
 					new SimpleDateFormat("yyyy-MM-dd").format(this.date));
 
 			if (this.send) {
-				this.notificationService.createNotification(n);
-			} else {
 				this.notificationService.createNotificationAndSend(n);
+			} else {
+				this.notificationService.createNotification(n);
 			}
 		}
 	}
