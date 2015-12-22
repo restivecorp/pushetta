@@ -1,16 +1,18 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml"   
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:f="http://java.sun.com/jsf/core"  
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:body>
     	<ui:composition template="/template/defaultLayout.xhtml">
     	
     		<ui:define name="content">
-
+    		
 				<article class="box post post-excerpt">
 					<header>
-						<h2>List and Reports</h2>
-						<p>.</p>
+						<h2>Notifications</h2>
+						<p>List and reports of notifications.</p>
 					</header>
 					<div class="info">
 						<span class="date">
@@ -20,18 +22,67 @@
 						 </span>
 		
 						<ul class="stats">
-							<li><a href="#" class="icon fa-cogs"><abbr title="Pending">PND</abbr></a></li>
-							<li><a href="#" class="icon fa-check"><abbr title="Sent">SNT</abbr></a></li>
-							<li><a href="#" class="icon fa-times"><abbr title="Errors">ERR</abbr></a></li>
-							<li><a href="#" class="icon fa-database"><abbr title="All">ALL</abbr></a></li>
+							<li><a href="#" class="icon fa-database">#{timeBean.totalNotifications}</a></li>
+							<li><a href="#" class="icon fa-cogs">#{timeBean.totalPending}</a></li>
+							<li><a href="#" class="icon fa-check">#{timeBean.totalSent}</a></li>
+							<li><a href="#" class="icon fa-exclamation-triangle">#{timeBean.totalErrors}</a></li>
 						</ul>
 					</div>
-					
-					<p>
-				
-					</p>
-					<p>
-					</p>
+
+					<h:form id="form">									
+						<p:dataTable id="nts" var="n" value="#{notificationBean.notifications}" reflow="true" 
+							rows="25" paginator="true"
+                         	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+                         
+						    <f:facet name="header">
+       							Notifications
+       						</f:facet>
+       						
+       						<p:column style="width:3%">
+            					<p:rowToggler />
+        					</p:column>
+						    						    
+						    <p:column headerText="ID" sortBy="#{n.id}" style="width:5%">
+								<h:outputText value="#{n.id}"/>
+							</p:column>
+
+						    <p:column headerText="User" filterBy="#{n.user.name}" sortBy="#{n.user.name}" style="width:45%">
+								<h:outputText value="#{n.user.name}"/>
+							</p:column>
+														 							
+							<p:column headerText="Schedule Date" filterBy="#{n.scheduleDate}" sortBy="#{n.scheduleDate}" style="width:15%">
+								<h:outputText value="#{n.scheduleDate}"/>
+							</p:column>
+							
+							<p:column headerText="Status" filterBy="#{n.statusName}" sortBy="#{n.statusName}" style="width:10%">
+								<h:outputText value="#{n.statusName}"/>
+							</p:column>		
+							
+							<p:rowExpansion>
+					            <p:panelGrid  columns="2" columnClasses="label,value">				 
+					                <h:outputText value="ID: " />
+					                <h:outputText value="#{n.id}" />
+					 
+					                <h:outputText value="Creation Date: " />
+					                <h:outputText value="#{n.creationDate}" />
+					 
+					                <h:outputText value="User:" />
+					                <h:outputText value="#{n.user.name}"/>
+					 
+					 				<h:outputText value="Text:" />
+					                <h:outputText value="#{n.text}"/>
+					                
+					                <h:outputText value="Status" />
+					                <h:outputText value="#{n.status}" />
+					                
+					                <h:outputText value="Try Send" />
+					                <h:outputText value="#{n.trySend}" />
+					            </p:panelGrid>
+					        </p:rowExpansion>
+					   			
+						</p:dataTable>
+
+					</h:form>
 				</article>
     		</ui:define>
 

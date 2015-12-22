@@ -36,11 +36,14 @@
 						        </p:selectOneMenu>
 					          	<p:message for="user" display="icon" />
 					           
-					            <p:outputLabel for="text" value="Notification Text:" />
-					            <p:inputText id="text" value="#{notificationNewBean.text}" required="true" label="text">
-					                <f:validateLength minimum="1" maximum="300" />
-					            </p:inputText>
-					            <p:message for="text" display="icon" />				 
+					            <p:outputLabel for="text" value="Notification Text:" />				         	
+					         	<p:inputTextarea id="text" value="#{notificationNewBean.text}" required="true" rows="6" cols="30" counter="display" maxlength="300" counterTemplate="{0} characters remaining." autoResize="false" />
+    							<p:message for="text" display="icon" />
+    							
+    							<h:outputText />
+    							<h:outputText id="display" />
+    							<h:outputText />
+    			  					
 
 					            <p:outputLabel for="date" value="Schedule Date (default today):" />
         						<p:calendar id="date" value="#{notificationNewBean.date}" pattern="yyyy-MM-dd"/>
