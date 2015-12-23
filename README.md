@@ -19,6 +19,7 @@ This is a small project to implement and test a lot of technologies such as:
 * jUnit
 * Spring Test
 * Log4j
+* Metrics
 
 ## Description
 Schedule Notificator System with Pushetta is a program that allows for the integration of Java with http://pushetta.com/ and gives it 
