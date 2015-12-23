@@ -86,7 +86,7 @@
 			<bean class = "org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
 		</property>
 	</bean>
-	
+  
 	<!-- Transaction manager -->
 	<tx:annotation-driven transaction-manager = "transactionManager" />
 	

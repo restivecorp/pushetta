@@ -7,21 +7,32 @@
            http://www.ryantenney.com/schema/metrics
            http://www.ryantenney.com/schema/metrics/metrics.xsd">
 
-
+	<!-- JMX server -->
 	<bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean">  
         <property name="locateExistingServerIfPossible" value="true" />  
     </bean>
- 
+
+  	<bean name="ehCacheManagerMBean" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" >
+    	<property name="shared" value="true" />
+  	</bean>	
+
+	<bean id="jmxExporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="beans">
+			<map>
+  				<entry key="Hibernate:type=statistics">
+					<ref bean="hibernateStatisticsFactoryBean"/>
+  				</entry>
+  				<entry key="ehCache:type=cache">
+					<ref bean="ehCacheManagerMBean"/>
+  				</entry>
+			</map>
+		</property>
+	</bean>
 
 
-	
+	<!-- Metrics -->
     <metrics:metric-registry id="metrics" />
-
-    <!-- Creates a HealthCheckRegistry bean 
-    <metrics:health-check-registry id="health" />
-    -->
     <metrics:annotation-driven metric-registry="metrics" />
-    
 	<metrics:reporter type="jmx" metric-registry="metrics" mbean-server-ref="mbeanServer" />
     
     <metrics:register metric-registry="metrics">
@@ -30,5 +41,4 @@
         <bean metrics:name="jvm.thread-states" class="com.codahale.metrics.jvm.ThreadStatesGaugeSet" />
         <bean metrics:name="jvm.fd.usage" class="com.codahale.metrics.jvm.FileDescriptorRatioGauge" />
     </metrics:register>
-
 </beans>
