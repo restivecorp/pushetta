@@ -14,7 +14,7 @@
 	<!-- Spring context -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:pushetta-context.xml</param-value>
+		<param-value>classpath:pushetta-context.xml,classpath:metrics-context.xml</param-value>
 	</context-param>
 
 	<!--
@@ -83,7 +83,7 @@
 	<url-pattern>*.faces</url-pattern>
 	</servlet-mapping>
 	-->
-
+	
 	<!-- API rest mapping -->
 	<servlet-mapping>
 		<servlet-name>rest</servlet-name>
@@ -119,7 +119,7 @@
 	<listener>
 		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
 	</listener>
-
+	
 	<!--
 	<session-config>
 	<session-timeout>180</session-timeout>
