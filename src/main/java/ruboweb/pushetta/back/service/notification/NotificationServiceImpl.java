@@ -23,6 +23,8 @@ import ruboweb.pushetta.back.repository.NotificationRepository;
 import ruboweb.pushetta.back.repository.UserRepository;
 import ruboweb.pushetta.exception.NotificatorException;
 
+import com.codahale.metrics.annotation.Timed;
+
 @Service
 @Transactional
 public class NotificationServiceImpl implements NotificationService {
@@ -54,9 +56,7 @@ public class NotificationServiceImpl implements NotificationService {
 	@Autowired
 	private UserRepository userRepository;
 
-	/**
-	 * {@inheritDoc}
-	 */
+	@Timed
 	@Override
 	public Notification createNotification(Notification n) {
 		if (n == null) {
@@ -83,6 +83,7 @@ public class NotificationServiceImpl implements NotificationService {
 		return this.notificationRepository.save(n);
 	}
 
+	@Timed
 	@Override
 	public Notification createNotificationAndSend(Notification n) {
 		n = this.createNotification(n);
@@ -91,9 +92,7 @@ public class NotificationServiceImpl implements NotificationService {
 		return n;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	@Timed
 	@Override
 	@Scheduled(cron = "${cron.send.notifications}")
 	public void sendNotifications() {
@@ -106,6 +105,7 @@ public class NotificationServiceImpl implements NotificationService {
 		}
 	}
 
+	@Timed
 	@Override
 	public void sendNotificationsWithError() {
 		List<Notification> notificatios = this.notificationRepository
@@ -117,6 +117,7 @@ public class NotificationServiceImpl implements NotificationService {
 		}
 	}
 
+	@Timed
 	@Override
 	public void deleteNotification(Long id) {
 		if (id == null) {
@@ -134,6 +135,7 @@ public class NotificationServiceImpl implements NotificationService {
 		this.notificationRepository.delete(id);
 	}
 
+	@Timed
 	@Override
 	public Notification findOneNotification(Long id) {
 		if (id == null) {
@@ -143,21 +145,25 @@ public class NotificationServiceImpl implements NotificationService {
 		return this.notificationRepository.findOne(id);
 	}
 
+	@Timed
 	@Override
 	public List<Notification> getListNotifications() {
 		return this.notificationRepository.findAll();
 	}
 
+	@Timed
 	@Override
 	public List<Notification> getListNotificationsPending() {
 		return this.notificationRepository.findNotificationsToSend();
 	}
 
+	@Timed
 	@Override
 	public List<Notification> getListNotificationsError() {
 		return this.notificationRepository.findNotificationsWithError();
 	}
 
+	@Timed
 	@Override
 	public List<Notification> getListNotificationsSent() {
 		return this.notificationRepository.findNotificationsSent();
@@ -182,11 +188,13 @@ public class NotificationServiceImpl implements NotificationService {
 		try {
 			if (!Boolean.parseBoolean(this.enable)) {
 				logger.error("pushetta.cfg.enable is not enabled");
-				throw new NotificatorException("pushetta.cfg.enable is not enabled");
+				throw new NotificatorException(
+						"pushetta.cfg.enable is not enabled");
 			}
 		} catch (Exception e) {
 			logger.error("Invalid boolean value ${pushetta.cfg.enable}");
-			throw new NotificatorException("Invalid boolean value ${pushetta.cfg.enable}");
+			throw new NotificatorException(
+					"Invalid boolean value ${pushetta.cfg.enable}");
 		}
 
 		try {

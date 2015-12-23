@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import ruboweb.pushetta.back.model.User;
 import ruboweb.pushetta.back.repository.UserRepository;
 
+import com.codahale.metrics.annotation.Timed;
+
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
@@ -17,9 +19,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 
-	/**
-	 * {@inheritDoc}
-	 */
+	@Timed
 	@Override
 	public User createOrUpdateUser(User u) {
 		if (u == null) {
@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService {
 		return this.userRepository.save(u);
 	}
 
+	@Timed
 	@Override
 	public User findOneUser(Long id) {
 		if (id == null) {
@@ -39,25 +40,25 @@ public class UserServiceImpl implements UserService {
 		return this.userRepository.findOne(id);
 	}
 
+	@Timed
 	@Override
 	public User findUserByToken(String token) {
 		if (token == null) {
 			throw new IllegalArgumentException(
 					"UserServiceImpl#findUserByToken token must not be null");
 		}
-		
+
 		if (token.isEmpty()) {
 			throw new IllegalArgumentException(
 					"UserServiceImpl#findUserByToken token must not be empty");
 		}
 		return this.userRepository.findUserByToken(token);
 	}
-	
+
+	@Timed
 	@Override
 	public List<User> getUsers() {
 		return this.userRepository.findAll();
 	}
-
-
 
 }
