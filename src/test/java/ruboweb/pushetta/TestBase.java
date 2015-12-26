@@ -10,6 +10,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration("classpath:/pushetta-context.xml")
 public class TestBase extends AbstractTransactionalJUnit4SpringContextTests {
 
+	static {
+		System.setProperty("pushetta.path", "D:\\ENV\\PUSHETTA");
+	}
+	
 	public TestBase() {
 
 	}
